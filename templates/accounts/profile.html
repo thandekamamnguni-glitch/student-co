@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Profile | Student Co</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/style.css"
+    >
+
+</head>
+
+<body>
+
+    <h1>My Profile</h1>
+
+    <p>
+        Username:
+        {{ request.user.username }}
+    </p>
+
+    <form
+        method="POST"
+        enctype="multipart/form-data"
+    >
+
+        {% csrf_token %}
+
+        <label>
+            Student Number
+        </label>
+
+        <input
+            type="text"
+            name="student_number"
+            value="{{ profile.student_number }}"
+        >
+
+        <br><br>
+
+        <label>
+            Phone
+        </label>
+
+        <input
+            type="text"
+            name="phone"
+            value="{{ profile.phone }}"
+        >
+
+        <br><br>
+
+        <label>
+            Bio
+        </label>
+
+        <textarea
+            name="bio"
+            rows="5"
+        >{{ profile.bio }}</textarea>
+
+        <br><br>
+
+        <label>
+            Profile Picture
+        </label>
+
+        <input
+            type="file"
+            name="profile_picture"
+        >
+
+        <br><br>
+
+        <button type="submit">
+            Save Profile
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="{% url 'dashboard' %}">
+        Back to Dashboard
+    </a>
+
+</body>
+
+</html>

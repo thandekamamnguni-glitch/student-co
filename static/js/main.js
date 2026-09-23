@@ -1,0 +1,1 @@
+console.log("Student Co JavaScript loaded successfully.")
