@@ -37,6 +37,10 @@ def register(request):
             password=password
         )
 
+        Profile.objects.create(
+            user=user
+        )
+
         login(request, user)
 
         return redirect('dashboard')

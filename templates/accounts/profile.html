@@ -22,7 +22,13 @@
 <body>
 
     <h1>My Profile</h1>
+    
+    {% if profile.profile_picture %}
+         <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" width="150" height="150"
+    {% else %}
+        <P>No profile picture uploaded.</P>
 
+    {% endif %}
     <p>
         Username:
         {{ request.user.username }}
