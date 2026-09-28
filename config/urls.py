@@ -21,13 +21,42 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    path(
+        '',
+        include('dashboard.urls')
+    ),
+
+    path(
+        'marketplace/',
+        include('marketplace.urls')
+    ),
+
+    path(
+        'requests/',
+        include('requests_app.urls')
+    ),
+
+    path(
+        'bookings/',
+        include('bookings.urls')
+    ),
+
+    path(
+        'reviews/',
+        include('reviews.urls')
+    ),
+
+    path(
+        'reports',
+        include('reports.urls')
+    ),
     
     path(
         'accounts/',
         include('accounts.urls')
     ),
 
-    path('', include('dashboard.urls'))
 ]
 urlpatterns += static(
     settings.MEDIA_URL,

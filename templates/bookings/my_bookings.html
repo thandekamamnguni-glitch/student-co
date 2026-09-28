@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>My Bookings</h1>
+
+    {% for booking in bookings %}
+
+        <div class="booking-card">
+
+            <h2>
+                {{ booking.request.service.title }}
+            </h2>
+
+            <p>
+                <strong>Provider:</strong>
+                {{ booking.response.provider.business_name }}
+            </p>
+
+            <p>
+                <strong>Price:</strong>
+                R{{ booking.response.price }}
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                Booking created
+            </p>
+
+            <a href="{% url 'create_review' booking.id %}">
+                Leave Review
+            </a>
+
+        </div>
+
+        <hr>
+
+    {% empty %}
+
+        <p>You don't have any bookings yet.</p>
+
+    {% endfor %}
+
+</div>
+
+{% endblock content %}
+

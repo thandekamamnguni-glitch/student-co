@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>Report User</h1>
+
+    <p>
+        You are reporting:
+        {{ reported_user.username }}
+    </p>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <label>Reason</label>
+
+        <input
+            type="text"
+            name="reason"
+            required
+        >
+
+        <br><br>
+
+        <label>Description</label>
+
+        <textarea
+            name="description"
+            rows="6"
+            required
+        ></textarea>
+
+        <br><br>
+
+        <button type="submit">
+            Submit Report
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

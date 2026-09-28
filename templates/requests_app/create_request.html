@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>Request Service</h1>
+
+    <h2>{{ service.title }}</h2>
+
+    <p>
+        {{ service.description }}
+    </p>
+
+    <p>
+        <strong>Provider:</strong>
+        {{ service.provider.business_name }}
+    </p>
+
+    <p>
+        <strong>Price:</strong>
+        R{{ service.price }}
+    </p>
+
+    <p>
+        <strong>Location:</strong>
+        {{ service.location }}
+    </p>
+
+    <hr>
+
+    <h2>Send a Request</h2>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <label for="message">
+            Tell the provider what you need:
+        </label>
+
+        <br>
+
+        <textarea
+            id="message"
+            name="message"
+            rows="6"
+            required
+        ></textarea>
+
+        <br><br>
+
+        <button type="submit">
+            Send Request
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

@@ -1,3 +1,1 @@
-from django.db import models
-
-# Create your models here.
+#Accounts models are cyrrently managed by the core app

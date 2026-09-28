@@ -193,7 +193,7 @@ class Report(models.Model):
     reported_user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='reports_recieved'
+        related_name='reports_received'
     )
 
     reason = models.CharField(max_length=150)

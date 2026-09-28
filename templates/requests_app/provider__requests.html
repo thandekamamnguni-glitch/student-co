@@ -1,0 +1,45 @@
+% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>Customer Requests</h1>
+
+    {% for request in requests %}
+
+        <div>
+
+            <h2>{{ request.service.title }}</h2>
+
+            <p>
+                Customer:
+                {{ request.customer.username }}
+            </p>
+
+            <p>
+                {{ request.message }}
+            </p>
+
+            <p>
+                Status:
+                {{ request.status }}
+            </p>
+
+            <a href="{% url 'respond_to_request' request.id %}">
+                Respond
+            </a>
+
+        </div>
+
+        <hr>
+
+    {% empty %}
+
+        <p>No customer requests yet.</p>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

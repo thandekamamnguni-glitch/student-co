@@ -31,4 +31,10 @@ urlpatterns = [
     views.profile,
     name='profile'
     ),
-]   
+    path(
+    'become-provider/',
+    views.become_provider,
+    name='become_provider'
+),
+] 
+

@@ -1,35 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends "base.html" %}
 
-    <title>Dashboard | Student Co</title>
+{% block content %}
 
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
-
-<body>
+<div class="container">
 
     <h1>Welcome to Student Co</h1>
 
-    <h2>
-        Hello, {{ user.username }}!
-    </h2>
-
     <p>
-        You are successfully logged in.
+        Welcome,
+        <strong>{{ request.user.username }}</strong>
     </p>
 
-    <br><br>
+    <div>
 
-    <a href="{% url 'profile' %}">
-        My Profile
-    </a>
+        <h2>Customer</h2>
+
+        <a href="{% url 'service_list' %}">
+            Browse Services
+        </a>
+
+        <br>
+
+        <a href="{% url 'my_requests' %}">
+            My Requests
+        </a>
+
+        <br>
+
+        <a href="{% url 'my_bookings' %}">
+            My Bookings
+        </a>
+
+    </div>
+
+    <hr>
+
+    <div>
+
+        <h2>My Account</h2>
+
+        <a href="{% url 'profile' %}">
+            My Profile
+        </a>
+
+        <br>
+
+        <a href="{% url 'become_provider' %}">
+            Become a Service Provider
+        </a>
+
+        <br>
+
+        <a href="{% url 'provider_dashboard' %}">
+            Provider Dashboard
+        </a>
+
+    </div>
+
+    <hr>
 
     <a href="{% url 'logout' %}">
         Logout
     </a>
 
-</body>
-</html>
+</div>
+
+{% endblock %}

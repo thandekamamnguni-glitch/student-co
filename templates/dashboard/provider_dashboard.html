@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>Provider Dashboard</h1>
+
+    <h2>{{ provider.business_name }}</h2>
+
+    <p>{{ provider.description }}</p>
+
+    {% if provider.is_available %}
+        <p>Provider Status: Available</p>
+    {% else %}
+        <p>Provider Status: Not Available</p>
+    {% endif %}
+
+    <hr>
+
+    <h2>My Services</h2>
+
+    <a href="{% url 'add_service' %}">
+        Add New Service
+    </a>
+
+    <br><br>
+
+    {% for service in services %}
+
+        <div class="service-card">
+
+            <h3>{{ service.title }}</h3>
+
+            <p>
+                {{ service.description }}
+            </p>
+
+            <p>
+                <strong>Category:</strong>
+                {{ service.category.name }}
+            </p>
+
+            <p>
+                <strong>Price:</strong>
+                R{{ service.price }}
+            </p>
+
+            <p>
+                <strong>Location:</strong>
+                {{ service.location }}
+            </p>
+
+            {% if service.is_available %}
+                <p>Service Available</p>
+            {% else %}
+                <p>Service Not Available</p>
+            {% endif %}
+
+        </div>
+
+        <hr>
+
+    {% empty %}
+
+        <p>You haven't added any services yet.</p>
+
+    {% endfor %}
+
+    <h2>Customer Requests</h2>
+
+    <a href="{% url 'provider_requests' %}">
+        View Customer Requests
+    </a>
+
+</div>
+
+{% endblock content %}

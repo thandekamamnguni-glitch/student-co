@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>Add Service</h1>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <label>Service Title</label>
+
+        <input
+            type="text"
+            name="title"
+            required
+        >
+
+        <br><br>
+
+        <label>Description</label>
+
+        <textarea
+            name="description"
+            rows="5"
+            required
+        ></textarea>
+
+        <br><br>
+
+        <label>Category</label>
+
+        <select name="category" required>
+
+            <option value="">
+                Select category
+            </option>
+
+            {% for category in categories %}
+
+                <option value="{{ category.id }}">
+                    {{ category.name }}
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+        <br><br>
+
+        <label>Price</label>
+
+        <input
+            type="number"
+            name="price"
+            step="0.01"
+            required
+        >
+
+        <br><br>
+
+        <label>Location</label>
+
+        <input
+            type="text"
+            name="location"
+        >
+
+        <br><br>
+
+        <button type="submit">
+            Add Service
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

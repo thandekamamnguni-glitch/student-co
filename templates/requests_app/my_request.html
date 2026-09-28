@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>My Service Requests</h1>
+
+    {% for request in requests %}
+
+        <div>
+
+            <h2>{{ request.service.title }}</h2>
+
+            <p>
+                {{ request.message }}
+            </p>
+
+            <p>
+                Status:
+                <strong>{{ request.status }}</strong>
+            </p>
+
+            <p>
+                Requested:
+                {{ request.created_at }}
+            </p>
+
+            <h3>Provider Responses</h3>
+
+            {% for response in request.responses.all %}
+
+                <div>
+
+                    <p>
+                        {{ response.message }}
+                    </p>
+
+                    <p>
+                        Price:
+                        R{{ response.price }}
+                    </p>
+
+                    <p>
+                        Provider:
+                        {{ response.provider.business_name }}
+                    </p>
+
+                    <a href="{% url 'create_booking' response.id %}">
+                        Book This Response
+                    </a>
+
+                </div>
+
+            {% empty %}
+
+                <p>
+                    No provider responses yet.
+                </p>
+
+            {% endfor %}
+
+        </div>
+
+        <hr>
+
+    {% empty %}
+
+        <p>You have not made any requests.</p>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

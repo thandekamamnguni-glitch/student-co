@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>{{ service.title }}</h1>
+
+    <p>
+        {{ service.description }}
+    </p>
+
+    <p>
+        <strong>Price:</strong>
+        R{{ service.price }}
+    </p>
+
+    <p>
+        <strong>Category:</strong>
+        {{ service.category.name }}
+    </p>
+
+    <p>
+        <strong>Provider:</strong>
+        {{ service.provider.business_name }}
+    </p>
+
+    <p>
+        <strong>Location:</strong>
+        {{ service.location }}
+    </p>
+
+    {% if user.is_authenticated %}
+
+        <a href="{% url 'create_request' service.id %}">
+            Request This Service
+        </a>
+
+    {% else %}
+
+        <a href="{% url 'login' %}">
+            Login to Request Service
+        </a>
+
+    {% endif %}
+    <a href="{% url 'create_report' service.provider.user.id %}">
+        Report Provider
+    </a>
+
+</div>
+
+{% endblock %}

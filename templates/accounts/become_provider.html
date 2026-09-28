@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>Become a Service Provider</h1>
+
+    <p>Create your provider profile below.</p>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <div>
+            <label for="business_name">
+                Business / Service Name
+            </label>
+
+            <br>
+
+            <input
+                type="text"
+                id="business_name"
+                name="business_name"
+                value="{{ provider.business_name }}"
+                required
+            >
+        </div>
+
+        <br>
+
+        <div>
+            <label for="description">
+                Description
+            </label>
+
+            <br>
+
+            <textarea
+                id="description"
+                name="description"
+                rows="5"
+                required
+            >{{ provider.description }}</textarea>
+        </div>
+
+        <br>
+
+        <button type="submit">
+            Save Provider Profile
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock content %}

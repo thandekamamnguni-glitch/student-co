@@ -1,7 +1,8 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from core.models import Profile
+from core.models import Profile, ProviderProfile
+
 # Create your views here.
 
 def register(request):
@@ -100,7 +101,7 @@ def profile(request):
     if not request.user.is_authenticated:
         return redirect('login')
 
-    user_profile = request.user.profile
+    user_profile, create = Profile.objects.get_or_create(user=request.user)
 
     if request.method == 'POST':
 
@@ -130,5 +131,43 @@ def profile(request):
         'accounts/profile.html',
         {
             'profile': user_profile
+        }
+    )
+
+def become_provider(request):
+
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    provider, created = ProviderProfile.objects.get_or_create(
+        user=request.user,
+        defaults={
+            'business_name': request.user.username,
+            'description': ''
+        }
+    )
+
+    if request.method == 'POST':
+
+        provider.business_name = request.POST.get('business_name')
+        provider.description = request.POST.get('description')
+        provider.is_available = True
+
+        provider.save()
+
+        profile = Profile.objects.get_or_create(
+            user=request.user
+        )[0]
+
+        profile.is_provider = True
+        profile.save()
+
+        return redirect('provider_dashboard')
+
+    return render(
+        request,
+        'accounts/become_provider.html',
+        {
+            'provider': provider
         }
     )
