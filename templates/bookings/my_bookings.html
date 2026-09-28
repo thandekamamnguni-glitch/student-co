@@ -1,49 +1,80 @@
 {% extends "base.html" %}
 
+{% block title %}My Bookings | Student Co{% endblock %}
+
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/my_bookings.css' %}">
+{% endblock %}
+
+
 {% block content %}
+<div class="bookings-page-wrapper">
+    <div class="bookings-container">
 
-<div class="container">
-
-    <h1>My Bookings</h1>
-
-    {% for booking in bookings %}
-
-        <div class="booking-card">
-
-            <h2>
-                {{ booking.request.service.title }}
-            </h2>
-
-            <p>
-                <strong>Provider:</strong>
-                {{ booking.response.provider.business_name }}
-            </p>
-
-            <p>
-                <strong>Price:</strong>
-                R{{ booking.response.price }}
-            </p>
-
-            <p>
-                <strong>Status:</strong>
-                Booking created
-            </p>
-
-            <a href="{% url 'create_review' booking.id %}">
-                Leave Review
+        <!-- Page Header -->
+        <header class="bookings-header">
+            <div>
+                <span class="bookings-tag">Customer Hub</span>
+                <h1>My Bookings</h1>
+                <p class="subtitle">View and manage services you've confirmed with campus providers.</p>
+            </div>
+            <a href="{% url 'service_list' %}" class="btn btn-primary">
+                <span>+ Browse More Services</span>
             </a>
+        </header>
 
+        <!-- Bookings List -->
+        <div class="bookings-list">
+            {% for booking in bookings %}
+            <article class="booking-card">
+                <div class="card-main">
+                    <div class="card-title-row">
+                        <h2>{{ booking.request.service.title }}</h2>
+                        <span class="status-pill status-active">
+                            <span class="status-dot"></span>
+                            Booking created
+                        </span>
+                    </div>
+
+                    <div class="booking-meta-grid">
+                        <div class="meta-item">
+                            <span class="meta-label">Provider</span>
+                            <span class="meta-val provider-name">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                                {{ booking.response.provider.business_name }}
+                            </span>
+                        </div>
+
+                        <div class="meta-item">
+                            <span class="meta-label">Agreed Price</span>
+                            <span class="meta-val price-val">R{{ booking.response.price }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-actions">
+                    <a href="{% url 'create_review' booking.id %}" class="btn btn-outline-primary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15" aria-hidden="true">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                        <span>Leave Review</span>
+                    </a>
+                </div>
+            </article>
+            {% empty %}
+            <div class="empty-state-card">
+                <div class="empty-icon">📅</div>
+                <h3>You don't have any bookings yet</h3>
+                <p>When you request a service and accept a provider's offer, your confirmed bookings will show up here.</p>
+                <a href="{% url 'service_list' %}" class="btn btn-primary">Find a Campus Service</a>
+            </div>
+            {% endfor %}
         </div>
 
-        <hr>
-
-    {% empty %}
-
-        <p>You don't have any bookings yet.</p>
-
-    {% endfor %}
-
+    </div>
 </div>
-
 {% endblock content %}
-

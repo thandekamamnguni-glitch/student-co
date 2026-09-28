@@ -1,68 +1,135 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block title %}Dashboard | Student Co{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/dashboard.css' %}">
+{% endblock %}
 
 {% block content %}
+<div class="dash-home-wrapper">
+    <div class="dash-container">
 
-<div class="container">
+        <header class="dash-welcome-card">
+            <div class="welcome-copy">
+                <span class="welcome-tag">Campus Hub</span>
+                <h1>Welcome back, {{ request.user.first_name|default:request.user.username }} 👋</h1>
+                <p>Manage your campus services, track bookings, and grow your provider skills all in one place.</p>
+            </div>
+            <div class="welcome-actions">
+                <a href="{% url 'service_list' %}" class="btn btn-primary">Find a Service</a>
+                <a href="{% url 'become_provider' %}" class="btn btn-outline-light">Offer Skills</a>
+            </div>
+        </header>
 
-    <h1>Welcome to Student Co</h1>
+        <div class="dash-sections-grid">
 
-    <p>
-        Welcome,
-        <strong>{{ request.user.username }}</strong>
-    </p>
+            <section class="section-card">
+                <div class="section-card-head">
+                    <div class="icon-circle icon-seeker">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2>Customer Hub</h2>
+                        <p class="section-sub">Find and manage help on campus</p>
+                    </div>
+                </div>
 
-    <div>
+                <div class="action-links-list">
+                    <a href="{% url 'service_list' %}" class="action-tile">
+                        <div class="tile-icon" aria-hidden="true">🔍</div>
+                        <div class="tile-body">
+                            <h3>Browse Services</h3>
+                            <p>Explore tutoring, repairs, design, food, and more.</p>
+                        </div>
+                        <span class="tile-arrow" aria-hidden="true">&rarr;</span>
+                    </a>
 
-        <h2>Customer</h2>
+                    <a href="{% url 'my_requests' %}" class="action-tile">
+                        <div class="tile-icon" aria-hidden="true">📋</div>
+                        <div class="tile-body">
+                            <h3>My Requests</h3>
+                            <p>Track your open "I Need..." posts and incoming offers.</p>
+                        </div>
+                        <span class="tile-arrow" aria-hidden="true">&rarr;</span>
+                    </a>
 
-        <a href="{% url 'service_list' %}">
-            Browse Services
-        </a>
+                    <a href="{% url 'my_bookings' %}" class="action-tile">
+                        <div class="tile-icon" aria-hidden="true">📅</div>
+                        <div class="tile-body">
+                            <h3>My Bookings</h3>
+                            <p>View confirmed dates and chat with your providers.</p>
+                        </div>
+                        <span class="tile-arrow" aria-hidden="true">&rarr;</span>
+                    </a>
+                </div>
+            </section>
 
-        <br>
+            <section class="section-card">
+                <div class="section-card-head">
+                    <div class="icon-circle icon-account">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2>Account &amp; Provider</h2>
+                        <p class="section-sub">Profile, settings, and business tools</p>
+                    </div>
+                </div>
 
-        <a href="{% url 'my_requests' %}">
-            My Requests
-        </a>
+                <div class="action-links-list">
+                    <a href="{% url 'profile' %}" class="action-tile">
+                        <div class="tile-icon" aria-hidden="true">👤</div>
+                        <div class="tile-body">
+                            <h3>My Profile</h3>
+                            <p>Update your photo, student number, phone, and bio.</p>
+                        </div>
+                        <span class="tile-arrow" aria-hidden="true">&rarr;</span>
+                    </a>
 
-        <br>
+                    <a href="{% url 'become_provider' %}" class="action-tile highlight-tile">
+                        <div class="tile-icon" aria-hidden="true">💼</div>
+                        <div class="tile-body">
+                            <h3>Become a Service Provider</h3>
+                            <p>Start offering skills and earn money on your campus.</p>
+                        </div>
+                        <span class="tile-arrow" aria-hidden="true">&rarr;</span>
+                    </a>
 
-        <a href="{% url 'my_bookings' %}">
-            My Bookings
-        </a>
+                    <a href="{% url 'provider_dashboard' %}" class="action-tile">
+                        <div class="tile-icon" aria-hidden="true">📊</div>
+                        <div class="tile-body">
+                            <h3>Provider Dashboard</h3>
+                            <p>Manage your listings, pricing, customer orders, and reviews.</p>
+                        </div>
+                        <span class="tile-arrow" aria-hidden="true">&rarr;</span>
+                    </a>
+                </div>
+            </section>
+
+        </div>
+
+        <footer class="dash-quick-footer">
+            <span>Signed in as <strong>{{ request.user.username }}</strong></span>
+            <form method="post" action="{% url 'logout' %}" class="logout-form">
+                {% csrf_token %}
+                <button type="submit" class="btn-logout-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    <span>Log Out</span>
+                </button>
+            </form>
+        </footer>
 
     </div>
-
-    <hr>
-
-    <div>
-
-        <h2>My Account</h2>
-
-        <a href="{% url 'profile' %}">
-            My Profile
-        </a>
-
-        <br>
-
-        <a href="{% url 'become_provider' %}">
-            Become a Service Provider
-        </a>
-
-        <br>
-
-        <a href="{% url 'provider_dashboard' %}">
-            Provider Dashboard
-        </a>
-
-    </div>
-
-    <hr>
-
-    <a href="{% url 'logout' %}">
-        Logout
-    </a>
-
 </div>
-
 {% endblock %}

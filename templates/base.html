@@ -1,72 +1,118 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Student Co — Campus Services Marketplace{% endblock %}</title>
 
-    <title>{% block title %}Student Co{% endblock% }</title>
+    <!-- Google Fonts: Sora (headings) & DM Sans (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="{%static 'css/style.css' %}"
+    <!-- Base Stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block extra_css %}{% endblock %}
 </head>
+<body class="site-body">
 
-<body>
+    <!-- Top Navigation Header -->
+    <header class="site-header" id="site-header">
+        <div class="site-container nav-inner">
+            <!-- Brand Logo -->
+            <a href="{% url 'home' %}" class="site-logo" aria-label="Student Co Home">
+                <span class="logo-mark" aria-hidden="true">S</span>
+                <span class="logo-text">Student <em>Co</em></span>
+            </a>
 
-    <header>
-        <h1>Student Co</h1>
+            <!-- Desktop Navigation Links -->
+            <nav class="nav-links" aria-label="Primary Navigation">
+                <a href="{% url 'home' %}" class="nav-link">Home</a>
+                <a href="{% url 'service_list' %}" class="nav-link">Services</a>
+                
+                {% if user.is_authenticated %}
+                    <a href="{% url 'dashboard' %}" class="nav-link">Dashboard</a>
+                    <a href="{% url 'my_requests' %}" class="nav-link">My Requests</a>
+                    <a href="{% url 'my_bookings' %}" class="nav-link">My Bookings</a>
+                {% endif %}
+            </nav>
+
+            <!-- Auth / Account Actions -->
+            <div class="nav-actions">
+                {% if user.is_authenticated %}
+                    <div class="user-menu-wrapper">
+                        <button type="button" class="user-menu-btn" id="user-menu-trigger" aria-expanded="false" aria-haspopup="true">
+                            <span class="avatar-circle">{{ user.username|slice:":1"|upper }}</span>
+                            <span class="user-handle">{{ user.username }}</span>
+                            <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div class="user-dropdown" id="user-dropdown" hidden>
+                            <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
+                            <a href="{% url 'dashboard' %}" class="dropdown-item">Dashboard</a>
+                            <hr class="dropdown-divider">
+                            <a href="{% url 'logout' %}" class="dropdown-item text-danger">Logout</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn-text">Login</a>
+                    <a href="{% url 'register' %}" class="btn btn-primary">Register</a>
+                {% endif %}
+            </div>
+
+            <!-- Mobile Hamburger Toggle -->
+            <button type="button" class="mobile-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav">
+                <span class="toggle-bar"></span>
+                <span class="toggle-bar"></span>
+                <span class="toggle-bar"></span>
+            </button>
+        </div>
     </header>
 
-    <main>
+    <!-- Mobile Drawer Menu -->
+    <div class="mobile-nav-drawer" id="mobile-nav" hidden>
+        <div class="mobile-nav-inner">
+            <nav class="mobile-links">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'service_list' %}">Services</a>
+
+                {% if user.is_authenticated %}
+                    <a href="{% url 'dashboard' %}">Dashboard</a>
+                    <a href="{% url 'profile' %}">Profile</a>
+                    <a href="{% url 'my_requests' %}">My Requests</a>
+                    <a href="{% url 'my_bookings' %}">My Bookings</a>
+                    <hr class="mobile-divider">
+                    <a href="{% url 'logout' %}" class="text-danger">Logout</a>
+                {% else %}
+                    <hr class="mobile-divider">
+                    <a href="{% url 'login' %}">Login</a>
+                    <a href="{% url 'register' %}" class="btn btn-primary btn-block">Register</a>
+                {% endif %}
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <main class="site-main" id="main-content">
         {% block content %}
-        {% endblock %}
+        {% endblock content %}
     </main>
 
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="site-container footer-content">
+            <p>&copy; 2026 Student Co. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'service_list' %}">Services</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Global JavaScript -->
     <script src="{% static 'js/main.js' %}"></script>
-<a href="{% url 'home' %}">
-    Home
-</a>
-
-<a href="{% url 'service_list' %}">
-    Services
-</a>
-
-{% if user.is_authenticated %}
-
-    <a href="{% url 'dashboard' %}">
-        Dashboard
-    </a>
-
-    <a href="{% url 'profile' %}">
-        Profile
-    </a>
-
-    <a href="{% url 'my_requests' %}">
-        My Requests
-    </a>
-
-    <a href="{% url 'my_bookings' %}">
-        My Bookings
-    </a>
-
-    <a href="{% url 'logout' %}">
-        Logout
-    </a>
-
-{% else %}
-
-    <a href="{% url 'login' %}">
-        Login
-    </a>
-
-    <a href="{% url 'register' %}">
-        Register
-    </a>
-
-{% endif %}
-
-
-
+    {% block extra_js %}{% endblock %}
 </body>
 </html>
-

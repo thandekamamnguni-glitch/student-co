@@ -1,58 +1,73 @@
 {% extends "base.html" %}
 
+{% block title %}Become a Service Provider | Student Co{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/become_provider.css' %}">
+{% endblock %}
+
+
 {% block content %}
+<div class="provider-onboard-wrapper">
+    <div class="container-narrow">
+        <header class="page-header">
+            <span class="badge-tag">Earn on Campus</span>
+            <h1>Become a Service Provider</h1>
+            <p class="subtitle">Set up your provider profile to start offering your services to students around your campus.</p>
+        </header>
 
-<div class="container">
+        <div class="card-form">
+            <form method="POST" class="styled-form" id="provider-form" novalidate>
+                {% csrf_token %}
 
-    <h1>Become a Service Provider</h1>
+                {% if form.errors %}
+                <div class="alert alert-error" role="alert">
+                    <p>Please correct the errors below before submitting.</p>
+                </div>
+                {% endif %}
 
-    <p>Create your provider profile below.</p>
+                <!-- Business / Service Name -->
+                <div class="form-group">
+                    <label for="business_name">Business / Service Name</label>
+                    <input
+                        type="text"
+                        id="business_name"
+                        name="business_name"
+                        value="{{ provider.business_name|default:'' }}"
+                        placeholder="e.g. Apex Tutoring or Lerato Graphic Designs"
+                        required
+                        autocomplete="organization"
+                    >
+                    <span class="field-hint">The name fellow students will see on your service listings and profile.</span>
+                    <span class="field-error" id="name-error"></span>
+                </div>
 
-    <form method="POST">
+                <!-- Description -->
+                <div class="form-group">
+                    <label for="description">About Your Services</label>
+                    <textarea
+                        id="description"
+                        name="description"
+                        rows="6"
+                        placeholder="Describe what services you provide, your experience, your availability, and why campus clients can trust you..."
+                        required
+                    >{{ provider.description|default:'' }}</textarea>
+                    <div class="field-footer">
+                        <span class="field-hint">Be clear and detailed to attract more inquiries and bookings.</span>
+                        <span class="char-counter" id="char-count">0 / 800</span>
+                    </div>
+                    <span class="field-error" id="desc-error"></span>
+                </div>
 
-        {% csrf_token %}
-
-        <div>
-            <label for="business_name">
-                Business / Service Name
-            </label>
-
-            <br>
-
-            <input
-                type="text"
-                id="business_name"
-                name="business_name"
-                value="{{ provider.business_name }}"
-                required
-            >
+                <!-- Submission Actions -->
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-lg" id="submit-btn">
+                        <span>Save Provider Profile</span>
+                    </button>
+                    <a href="{% url 'dashboard' %}" class="btn-cancel">Cancel</a>
+                </div>
+            </form>
         </div>
-
-        <br>
-
-        <div>
-            <label for="description">
-                Description
-            </label>
-
-            <br>
-
-            <textarea
-                id="description"
-                name="description"
-                rows="5"
-                required
-            >{{ provider.description }}</textarea>
-        </div>
-
-        <br>
-
-        <button type="submit">
-            Save Provider Profile
-        </button>
-
-    </form>
-
+    </div>
 </div>
-
 {% endblock content %}

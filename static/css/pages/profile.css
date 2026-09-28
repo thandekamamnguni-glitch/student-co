@@ -1,0 +1,293 @@
+:root {
+    --green-500: #12b47f;
+    --green-600: #0ea171;
+    --green-100: #d1fae5;
+    --navy-950: #080d1a;
+    --navy-900: #0f172a;
+    --navy-800: #1e293b;
+    --navy-600: #475569;
+    --navy-500: #64748b;
+    --navy-200: #e2e8f0;
+    --navy-100: #f1f5f9;
+    --bg-page: #f8fafc;
+    --card-bg: #ffffff;
+    --font-heading: 'Sora', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    --shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body.profile-edit-body {
+    font-family: var(--font-body);
+    background-color: var(--bg-page);
+    color: var(--navy-900);
+    line-height: 1.5;
+    min-height: 100vh;
+    padding-bottom: 3rem;
+}
+
+.dash-container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+}
+
+/* Nav */
+.dash-nav {
+    background: #ffffff;
+    border-bottom: 1px solid var(--navy-200);
+    padding: 0.85rem 0;
+    margin-bottom: 2.5rem;
+}
+
+.nav-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dash-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--navy-900);
+}
+
+.logo-mark {
+    width: 32px;
+    height: 32px;
+    background: var(--green-500);
+    color: #fff;
+    border-radius: var(--radius-sm);
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+}
+
+.dash-logo em {
+    color: var(--green-500);
+    font-style: normal;
+}
+
+.btn-back {
+    font-size: 0.88rem;
+    color: var(--navy-600);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.15s ease;
+}
+
+.btn-back:hover {
+    color: var(--navy-900);
+}
+
+/* Card */
+.edit-card {
+    background: var(--card-bg);
+    border: 1px solid var(--navy-200);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 2.5rem;
+}
+
+@media (max-width: 600px) {
+    .edit-card {
+        padding: 1.5rem;
+    }
+}
+
+.edit-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--navy-100);
+}
+
+.edit-header h1 {
+    font-family: var(--font-heading);
+    font-size: 1.65rem;
+    color: var(--navy-900);
+    margin-bottom: 0.25rem;
+}
+
+.edit-sub {
+    font-size: 0.9rem;
+    color: var(--navy-500);
+}
+
+/* Form Layout */
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Avatar Upload Section */
+.avatar-upload-section {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1rem;
+    background: var(--navy-100);
+    border-radius: var(--radius-md);
+}
+
+.avatar-preview-wrapper {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--green-500);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-fallback {
+    color: #ffffff;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+.avatar-upload-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.file-input-hidden {
+    display: none;
+}
+
+.btn-upload-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: #ffffff;
+    border: 1px solid var(--navy-200);
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--navy-800);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    width: fit-content;
+}
+
+.btn-upload-label:hover {
+    background: var(--navy-50);
+    border-color: var(--navy-300);
+}
+
+.file-name {
+    font-size: 0.8rem;
+    color: var(--navy-500);
+}
+
+/* Form Fields */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+}
+
+@media (max-width: 600px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.form-group label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--navy-800);
+}
+
+.form-group input,
+.form-group textarea {
+    font-family: inherit;
+    font-size: 0.95rem;
+    padding: 0.75rem 0.9rem;
+    border: 1.5px solid var(--navy-200);
+    border-radius: var(--radius-sm);
+    background: #ffffff;
+    color: var(--navy-900);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--green-500);
+    box-shadow: 0 0 0 3px var(--green-100);
+}
+
+.field-hint {
+    font-size: 0.8rem;
+    color: var(--navy-500);
+}
+
+/* Actions */
+.form-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--navy-100);
+}
+
+.btn-save {
+    padding: 0.8rem 1.8rem;
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 600;
+    background: var(--green-500);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.btn-save:hover {
+    background: var(--green-600);
+}
+
+.btn-cancel {
+    font-size: 0.9rem;
+    color: var(--navy-600);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-cancel:hover {
+    color: var(--navy-900);
+}

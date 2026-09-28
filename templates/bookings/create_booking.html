@@ -1,36 +1,78 @@
 {% extends "base.html" %}
 
+{% block title %}Confirm Booking | Student Co{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/create_booking.css' %}">
+{% endblock %}
+
+
 {% block content %}
+<div class="booking-page-wrapper">
+    <div class="booking-container">
+        
+        <!-- Breadcrumb / Back Link -->
+        <nav class="booking-breadcrumb" aria-label="Breadcrumb">
+            <a href="{% url 'service_list' %}" class="btn-back">
+                &larr; Back to Services
+            </a>
+        </nav>
 
-<div class="container">
+        <header class="booking-header">
+            <span class="booking-badge">Final Step</span>
+            <h1>Confirm Your Booking</h1>
+            <p class="subtitle">Review the service and pricing details before confirming your booking with the provider.</p>
+        </header>
 
-    <h1>Confirm Booking</h1>
+        <div class="booking-card">
+            <div class="card-section order-details">
+                <h2 class="section-title">Order Summary</h2>
 
-    <p>
-        Service:
-        {{ response.request.service.title }}
-    </p>
+                <div class="detail-row">
+                    <span class="detail-label">Service</span>
+                    <span class="detail-value highlight">{{ response.request.service.title }}</span>
+                </div>
 
-    <p>
-        Provider:
-        {{ response.provider.business_name }}
-    </p>
+                <div class="detail-row">
+                    <span class="detail-label">Provider</span>
+                    <span class="detail-value">
+                        <span class="provider-pill">
+                            <span class="provider-dot"></span>
+                            {{ response.provider.business_name }}
+                        </span>
+                    </span>
+                </div>
 
-    <p>
-        Price:
-        R{{ response.price }}
-    </p>
+                <div class="detail-row total-row">
+                    <span class="detail-label">Total Agreed Price</span>
+                    <span class="detail-value price-tag">R{{ response.price }}</span>
+                </div>
+            </div>
 
-    <form method="POST">
+            <!-- Trust / Campus Safety Note -->
+            <div class="trust-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" aria-hidden="true">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <div class="trust-copy">
+                    <strong>Campus Community Guarantee</strong>
+                    <p>Communicate directly with your student provider to finalize time and location. Payment terms are arranged safely between peers.</p>
+                </div>
+            </div>
 
-        {% csrf_token %}
+            <form method="POST" class="booking-form" id="booking-form">
+                {% csrf_token %}
 
-        <button type="submit">
-            Confirm Booking
-        </button>
+                <button type="submit" class="btn btn-primary btn-block" id="confirm-btn">
+                    <span>Confirm Booking</span>
+                </button>
+            </form>
 
-    </form>
+            <div class="booking-footer">
+                <a href="{% url 'dashboard' %}" class="btn-cancel">Cancel and return to Dashboard</a>
+            </div>
+        </div>
 
+    </div>
 </div>
-
 {% endblock %}
