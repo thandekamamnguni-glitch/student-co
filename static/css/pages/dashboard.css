@@ -1,0 +1,296 @@
+:root {
+    --green-500: #12b47f;
+    --green-600: #0ea171;
+    --green-100: #d1fae5;
+    --green-50: #ecfdf5;
+    --navy-950: #080d1a;
+    --navy-900: #0f172a;
+    --navy-800: #1e293b;
+    --navy-600: #475569;
+    --navy-500: #64748b;
+    --navy-200: #e2e8f0;
+    --navy-100: #f1f5f9;
+    --bg-page: #f8fafc;
+    --card-bg: #ffffff;
+    --font-heading: 'Sora', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 18px;
+    --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
+    --shadow-md: 0 4px 20px -2px rgba(15, 23, 42, 0.06);
+}
+
+.dash-home-wrapper {
+    background-color: var(--bg-page);
+    min-height: calc(100vh - 75px);
+    padding: 2.5rem 1.25rem 4rem;
+}
+
+.dash-container {
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+/* Welcome Card */
+.dash-welcome-card {
+    background: radial-gradient(circle at top left, rgba(18, 180, 127, 0.35), transparent 55%), var(--navy-900);
+    color: #ffffff;
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+    box-shadow: var(--shadow-md);
+    flex-wrap: wrap;
+}
+
+.welcome-tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: rgba(18, 180, 127, 0.25);
+    color: #34d399;
+    border: 1px solid rgba(52, 211, 153, 0.3);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+}
+
+.welcome-copy h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.6rem, 2.8vw, 2.1rem);
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+}
+
+.welcome-copy p {
+    color: var(--navy-300, #cbd5e1);
+    font-size: 0.98rem;
+    max-width: 52ch;
+}
+
+.welcome-actions {
+    display: flex;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+}
+
+/* Section Grid */
+.dash-sections-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 1.75rem;
+    margin-bottom: 2.5rem;
+}
+
+.section-card {
+    background: var(--card-bg);
+    border: 1px solid var(--navy-200);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+}
+
+.section-card-head {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid var(--navy-100);
+}
+
+.icon-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+}
+
+.icon-seeker {
+    background: var(--green-100);
+    color: var(--green-600);
+}
+
+.icon-account {
+    background: #e0e7ff;
+    color: #4338ca;
+}
+
+.section-card-head h2 {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    color: var(--navy-900);
+    margin-bottom: 0.15rem;
+}
+
+.section-sub {
+    font-size: 0.82rem;
+    color: var(--navy-500);
+}
+
+/* Action Tiles */
+.action-links-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    flex: 1;
+}
+
+.action-tile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.15rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--navy-200);
+    background: #ffffff;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+}
+
+.action-tile:hover {
+    border-color: var(--green-500);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(18, 180, 127, 0.08);
+}
+
+.highlight-tile {
+    background: linear-gradient(to right, var(--green-50), #ffffff);
+    border-color: var(--green-100);
+}
+
+.tile-icon {
+    font-size: 1.4rem;
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    background: var(--navy-100);
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+}
+
+.highlight-tile .tile-icon {
+    background: var(--green-100);
+}
+
+.tile-body {
+    flex: 1;
+}
+
+.tile-body h3 {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--navy-900);
+    margin-bottom: 0.2rem;
+}
+
+.tile-body p {
+    font-size: 0.82rem;
+    color: var(--navy-600);
+    line-height: 1.35;
+}
+
+.tile-arrow {
+    color: var(--navy-300);
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.action-tile:hover .tile-arrow {
+    color: var(--green-500);
+    transform: translateX(4px);
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.35rem;
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.btn-primary {
+    background: var(--green-500);
+    color: #ffffff;
+    border: none;
+}
+.btn-primary:hover {
+    background: var(--green-600);
+}
+
+.btn-outline-light {
+    background: transparent;
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    color: #ffffff;
+}
+.btn-outline-light:hover {
+    border-color: #ffffff;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Quick Footer */
+.dash-quick-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 0.5rem 0;
+    border-top: 1px solid var(--navy-200);
+    font-size: 0.88rem;
+    color: var(--navy-600);
+}
+
+.btn-logout-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: #dc2626;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.88rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--radius-sm);
+    transition: background 0.15s ease;
+}
+
+.btn-logout-link:hover {
+    background: #fee2e2;
+}
+
+@media (max-width: 600px) {
+    .dash-welcome-card {
+        padding: 1.75rem 1.25rem;
+    }
+    .welcome-actions {
+        width: 100%;
+    }
+    .welcome-actions .btn {
+        flex: 1;
+    }
+    .dash-quick-footer {
+        flex-direction: column;
+        gap: 0.75rem;
+        text-align: center;
+    }
+}

@@ -1,104 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% load static %}
 
-<head>
+{% block title %}My Profile | Student Co{% endblock %}
 
-    <meta charset="UTF-8">
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/profile.css' %}">
+{% endblock %}
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+{% block content %}
+<div class="profile-wrapper">
+    <div class="profile-card">
+        <h1>My Profile</h1>
+        <p class="profile-username">Username: <strong>{{ request.user.username }}</strong></p>
 
-    <title>My Profile | Student Co</title>
+        <div class="avatar-box">
+            {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="avatar-preview">
+            {% else %}
+                <p>No profile picture uploaded.</p>
+            {% endif %}
+        </div>
 
-    <link
-        rel="stylesheet"
-        href="/static/css/style.css"
-    >
+        <form method="POST" enctype="multipart/form-data" class="profile-form">
+            {% csrf_token %}
 
-</head>
+            <div class="form-group">
+                <label for="id_student_number">Student Number</label>
+                <input type="text" id="id_student_number" name="student_number" value="{{ profile.student_number|default:'' }}">
+            </div>
 
-<body>
+            <div class="form-group">
+                <label for="id_phone">Phone</label>
+                <input type="text" id="id_phone" name="phone" value="{{ profile.phone|default:'' }}">
+            </div>
 
-    <h1>My Profile</h1>
-    
-    {% if profile.profile_picture %}
-         <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" width="150" height="150"
-    {% else %}
-        <P>No profile picture uploaded.</P>
+            <div class="form-group">
+                <label for="id_bio">Bio</label>
+                <textarea id="id_bio" name="bio" rows="4">{{ profile.bio|default:'' }}</textarea>
+            </div>
 
-    {% endif %}
-    <p>
-        Username:
-        {{ request.user.username }}
-    </p>
+            <div class="form-group">
+                <label for="id_picture">Profile Picture</label>
+                <input type="file" id="id_picture" name="profile_picture">
+            </div>
 
-    <form
-        method="POST"
-        enctype="multipart/form-data"
-    >
-
-        {% csrf_token %}
-
-        <label>
-            Student Number
-        </label>
-
-        <input
-            type="text"
-            name="student_number"
-            value="{{ profile.student_number }}"
-        >
-
-        <br><br>
-
-        <label>
-            Phone
-        </label>
-
-        <input
-            type="text"
-            name="phone"
-            value="{{ profile.phone }}"
-        >
-
-        <br><br>
-
-        <label>
-            Bio
-        </label>
-
-        <textarea
-            name="bio"
-            rows="5"
-        >{{ profile.bio }}</textarea>
-
-        <br><br>
-
-        <label>
-            Profile Picture
-        </label>
-
-        <input
-            type="file"
-            name="profile_picture"
-        >
-
-        <br><br>
-
-        <button type="submit">
-            Save Profile
-        </button>
-
-    </form>
-
-    <br>
-
-    <a href="{% url 'dashboard' %}">
-        Back to Dashboard
-    </a>
-
-</body>
-
-</html>
+            <button type="submit" class="btn btn-primary">Save Profile</button>
+            <a href="{% url 'dashboard' %}" class="btn-cancel">Back to Dashboard</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

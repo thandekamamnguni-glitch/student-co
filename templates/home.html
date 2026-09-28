@@ -1,26 +1,280 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}
-Student Co - Campus Services Marketplace
+{% block title %}Student Co — Campus Services Marketplace{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
 {% endblock %}
 
 {% block content %}
+<!-- ============================================================
+     HERO & SEARCH SECTION
+     ============================================================ -->
+<section class="hero-section">
+    <div class="site-container hero-inner">
+        <div class="hero-badge">
+            <span class="badge-dot"></span>
+            <span>Connect. Share. Learn. Grow.</span>
+        </div>
 
-<section>
-    <h2>Welcome to Student Co</h2>
+        <h1 class="hero-title">
+            Find services. Offer skills.<br>
+            <span class="text-gradient">Connect on campus.</span>
+        </h1>
 
-    <p>
-        Connect. Share. Learn. Grow.
-    </p>
-    <p>
-        Find and offer services within your campus community.
-    </p>
+        <p class="hero-sub">
+            Student Co makes it easy to find trusted services around your campus — or turn your own skills into an earning opportunity.
+        </p>
 
+        <!-- Marketplace Dual Search Bar -->
+        <form action="{% url 'service_list' %}" method="GET" class="hero-search-box">
+            <div class="search-field">
+                <span class="field-icon">🔍</span>
+                <input type="text" name="q" placeholder="What service are you looking for? (e.g. Tutoring, Design)" aria-label="Search service">
+            </div>
+            <div class="search-divider"></div>
+            <div class="search-field">
+                <span class="field-icon">📍</span>
+                <input type="text" name="campus" placeholder="Campus (e.g. Bloemfontein, UJ)" aria-label="Campus location">
+            </div>
+            <button type="submit" class="btn btn-search">
+                <span>Search</span>
+            </button>
+        </form>
 
-    <button>Find a Service</button>
-    <button>Offer a service</button>
+        <!-- Hero Dual Action Buttons -->
+        <div class="hero-dual-cta">
+            <div class="cta-mini-card">
+                <div>
+                    <strong>Need something done?</strong>
+                    <p>Get help from skilled students nearby</p>
+                </div>
+                <a href="{% url 'service_list' %}" class="btn btn-primary btn-sm">Find a Service</a>
+            </div>
 
+            <div class="cta-mini-card">
+                <div>
+                    <strong>Have a skill to share?</strong>
+                    <p>Start earning on your own schedule</p>
+                </div>
+                <a href="{% url 'become_provider' %}" class="btn btn-dark btn-sm">Offer a Service</a>
+            </div>
+        </div>
+
+        <!-- Quick Category Chips -->
+        <div class="quick-chips">
+            <span class="chips-label">Popular:</span>
+            <div class="chips-scroller">
+                <a href="{% url 'service_list' %}?category=tutoring" class="chip">📚 Tutoring</a>
+                <a href="{% url 'service_list' %}?category=design" class="chip">🎨 Graphic Design</a>
+                <a href="{% url 'service_list' %}?category=repairs" class="chip">💻 Laptop Repairs</a>
+                <a href="{% url 'service_list' %}?category=printing" class="chip">🖨️ Printing</a>
+                <a href="{% url 'service_list' %}?category=food" class="chip">🍲 Food &amp; Meals</a>
+                <a href="{% url 'service_list' %}?category=photography" class="chip">📸 Photography</a>
+            </div>
+        </div>
+    </div>
 </section>
 
+<!-- ============================================================
+     BROWSE CATEGORIES
+     ============================================================ -->
+<section class="section-padded bg-white">
+    <div class="site-container">
+        <div class="section-header">
+            <span class="section-tag">Categories</span>
+            <h2>What do you need help with?</h2>
+            <p>Explore trusted student providers across top campus categories.</p>
+        </div>
+
+        <div class="categories-grid">
+            <a href="{% url 'service_list' %}?category=tutoring" class="category-card">
+                <div class="cat-icon-wrap icon-teal">📚</div>
+                <h3>Tutoring</h3>
+                <p>Calculus, accounting, physics, essay editing, and exam prep.</p>
+                <span class="cat-arrow">&rarr;</span>
+            </a>
+
+            <a href="{% url 'service_list' %}?category=repairs" class="category-card">
+                <div class="cat-icon-wrap icon-blue">💻</div>
+                <h3>Computer Repairs</h3>
+                <p>OS installation, virus cleanup, hardware fixes, and software setup.</p>
+                <span class="cat-arrow">&rarr;</span>
+            </a>
+
+            <a href="{% url 'service_list' %}?category=design" class="category-card">
+                <div class="cat-icon-wrap icon-purple">🎨</div>
+                <h3>Graphic Design</h3>
+                <p>Event posters, society branding, flyers, CVs, and social graphics.</p>
+                <span class="cat-arrow">&rarr;</span>
+            </a>
+
+            <a href="{% url 'service_list' %}?category=printing" class="category-card">
+                <div class="cat-icon-wrap icon-amber">🖨️</div>
+                <h3>Printing &amp; Binding</h3>
+                <p>Quick thesis binding, color prints, and document delivery on campus.</p>
+                <span class="cat-arrow">&rarr;</span>
+            </a>
+
+            <a href="{% url 'service_list' %}?category=photography" class="category-card">
+                <div class="cat-icon-wrap icon-rose">📸</div>
+                <h3>Photography</h3>
+                <p>Graduation shoots, portfolio headshots, and campus society events.</p>
+                <span class="cat-arrow">&rarr;</span>
+            </a>
+
+            <a href="{% url 'service_list' %}?category=food" class="category-card">
+                <div class="cat-icon-wrap icon-orange">🍲</div>
+                <h3>Food &amp; Meals</h3>
+                <p>Home-cooked meal preps, baked snacks, and res deliveries.</p>
+                <span class="cat-arrow">&rarr;</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     TRENDING SERVICES
+     ============================================================ -->
+<section class="section-padded">
+    <div class="site-container">
+        <div class="section-header flex-between">
+            <div>
+                <span class="section-tag">Marketplace</span>
+                <h2>Trending on campus</h2>
+                <p>Services students are booking right now.</p>
+            </div>
+            <a href="{% url 'service_list' %}" class="btn-link">View all services &rarr;</a>
+        </div>
+
+        <div class="services-grid">
+            <!-- Sample Listing 1 -->
+            <article class="service-card">
+                <div class="service-tag-badge">Tutoring</div>
+                <div class="service-body">
+                    <h3>Mathematics &amp; Stats Tutoring</h3>
+                    <p class="service-desc">One-on-one calculus and stats assistance tailored to your module syllabus.</p>
+                    <div class="provider-row">
+                        <div class="provider-avatar">T</div>
+                        <div>
+                            <span class="p-name">Thabo M.</span>
+                            <span class="p-campus">Bloemfontein Campus</span>
+                        </div>
+                    </div>
+                    <div class="card-bottom">
+                        <span class="rating">★ 4.9 <small>(24)</small></span>
+                        <span class="price">From <strong>R80</strong>/hr</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Sample Listing 2 -->
+            <article class="service-card">
+                <div class="service-tag-badge">Graphic Design</div>
+                <div class="service-body">
+                    <h3>Event Poster &amp; Logo Design</h3>
+                    <p class="service-desc">Eye-catching social media flyers and branding for campus events and clubs.</p>
+                    <div class="provider-row">
+                        <div class="provider-avatar">K</div>
+                        <div>
+                            <span class="p-name">Kagiso P.</span>
+                            <span class="p-campus">UJ Auckland Park</span>
+                        </div>
+                    </div>
+                    <div class="card-bottom">
+                        <span class="rating">★ 5.0 <small>(18)</small></span>
+                        <span class="price">From <strong>R150</strong></span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Sample Listing 3 -->
+            <article class="service-card">
+                <div class="service-tag-badge">Computer Repairs</div>
+                <div class="service-body">
+                    <h3>Laptop OS &amp; Hardware Diagnostics</h3>
+                    <p class="service-desc">Screen replacements, Windows/macOS reinstalls, and SSD upgrades done in res.</p>
+                    <div class="provider-row">
+                        <div class="provider-avatar">S</div>
+                        <div>
+                            <span class="p-name">Sipho N.</span>
+                            <span class="p-campus">Wits Braamfontein</span>
+                        </div>
+                    </div>
+                    <div class="card-bottom">
+                        <span class="rating">★ 4.8 <small>(31)</small></span>
+                        <span class="price">From <strong>R120</strong></span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     HOW IT WORKS
+     ============================================================ -->
+<section class="section-padded bg-white">
+    <div class="site-container">
+        <div class="section-header text-center">
+            <span class="section-tag">Simple Process</span>
+            <h2>How Student Co Works</h2>
+            <p>Connect and get things done in three straightforward steps.</p>
+        </div>
+
+        <div class="steps-grid">
+            <div class="step-card">
+                <span class="step-num">01</span>
+                <h3>Search or Post</h3>
+                <p>Browse campus services or post an "I Need..." request detailing what help you need.</p>
+            </div>
+
+            <div class="step-card">
+                <span class="step-num">02</span>
+                <h3>Connect &amp; Agree</h3>
+                <p>Compare student providers, check reviews, chat directly, and agree on timing and price.</p>
+            </div>
+
+            <div class="step-card">
+                <span class="step-num">03</span>
+                <h3>Book &amp; Get It Done</h3>
+                <p>Confirm the booking, complete the task safely on campus, and leave a review.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     TWO-SIDED CALL TO ACTION
+     ============================================================ -->
+<section class="section-padded">
+    <div class="site-container">
+        <div class="dual-banner-grid">
+            <div class="banner-box seeker-box">
+                <span class="banner-badge">Need Services</span>
+                <h2>Looking for trusted help?</h2>
+                <p>Find peer tutors, designers, printers, and tech support within walking distance on campus.</p>
+                <div class="banner-btns">
+                    <a href="{% url 'service_list' %}" class="btn btn-primary">Find a Service</a>
+                    <a href="{% url 'register' %}" class="btn btn-outline">Join as Seeker</a>
+                </div>
+            </div>
+
+            <div class="banner-box provider-box">
+                <span class="banner-badge">Have Skills</span>
+                <h2>Turn your skills into income</h2>
+                <p>Offer tutoring, repair laptops, or design graphics. Build your portfolio while studying.</p>
+                <div class="banner-btns">
+                    <a href="{% url 'become_provider' %}" class="btn btn-dark">Offer a Service</a>
+                    <a href="{% url 'register' %}" class="btn btn-outline-white">Register as Provider</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
 
+{% block extra_js %}
+<script src="{% static 'js/landing.js' %}"></script>
+{% endblock %}

@@ -1,74 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'base.html' %}
+{% load static %}
 
-    <title>Register | Student Co</title>
+{% block title %}Register | Student Co{% endblock %}
 
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/register.css' %}">
+{% endblock %}
 
-<body>
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <h1>Create your Student Co account</h1>
 
-    <h1>Create your Student Co account</h1>
-
-    {% if error %}
-          <p>{{error}}</p>
-    {% endif %}
-
-    <form method="POST">
-
-        {% csrf_token %}
-
-        <div>
-
-           <label for="username">
-                Username
-           </label>
-           <input type="text" id="username" name="username" required>
+        {% if error %}
+        <div class="alert alert-error">
+            <p>{{ error }}</p>
         </div>
+        {% endif %}
 
-        <br>
+        <form method="POST" class="auth-form" id="register-form">
+            {% csrf_token %}
 
-        <div>
-            <label for="email">
-                Email
-            </label>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
 
-            <input type="email" id="email" name="email" required>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
 
-        </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
 
-        <div>
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" id="confirm_password" name="confirm_password" required>
+            </div>
 
-          <label for="password">
-             Password
-            </label>
-          <input type="password" id="password" name="password" required>
+            <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+        </form>
 
-        </div>
-    
-        <br>
+        <p class="auth-footer">
+            Already have an account? <a href="{% url 'login' %}">Login</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
 
-        <div>
-
-          <label for="confirm_password">Confirm Password</label>
-          <input type="password" id="confirm_password" name="confirm_password" required>
-
-        </div>
-
-        <button type="submit">
-            Create Account 
-        </button>
-
-    </form>
-
-    <p>
-        Already have an account?
-        <a href="{% url 'login' %}">
-            Login
-        </a>
-    </p>
-</body>
-</html>
+{% block extra_js %}
+<script src="{% static 'js/pages/accounts.js' %}"></script>
+{% endblock %}
