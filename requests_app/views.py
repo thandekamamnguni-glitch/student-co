@@ -44,7 +44,7 @@ def my_requests(request):
 
     return render(
         request,
-        'requests_app/my_requests.html',
+        'requests_app/my_request.html',
         {
             'requests': requests
         }
