@@ -1,0 +1,61 @@
+/* ==========================================================================
+   Provider Customer Requests Specific Styles
+   ========================================================================== */
+
+.back-link {
+  display: inline-block;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--navy-500, #64748b);
+  text-decoration: none;
+  margin-bottom: 0.85rem;
+  transition: color 0.15s ease;
+}
+
+.back-link:hover {
+  color: var(--green-600, #0ea171);
+}
+
+.customer-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.88rem;
+  color: var(--navy-600, #475569);
+  margin-top: 0.35rem;
+}
+
+.customer-badge strong {
+  color: var(--navy-900, #0f172a);
+}
+
+.request-card-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--navy-100, #f1f5f9);
+  margin-top: 1.25rem;
+}
+
+.btn-action-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--green-500, #12b47f);
+  color: #ffffff;
+  padding: 0.75rem 1.4rem;
+  border-radius: var(--radius-sm, 8px);
+  font-family: var(--font-heading, 'Sora', sans-serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.15s ease, transform 0.05s ease;
+}
+
+.btn-action-primary:hover {
+  background: var(--green-600, #0ea171);
+}
+
+.btn-action-primary:active {
+  transform: translateY(1px);
+}

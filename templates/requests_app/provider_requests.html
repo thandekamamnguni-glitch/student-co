@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Customer Requests | Student Co{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/provider_requests.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="requests-container">
+    <div class="requests-header">
+        <a href="{% url 'provider_dashboard' %}" class="back-link">&larr; Back to Provider Dashboard</a>
+        <h1>Customer Requests</h1>
+        <p class="requests-sub">Incoming inquiries from students interested in booking your campus services.</p>
+    </div>
+
+    <div class="requests-list">
+        {% for request in requests %}
+            <article class="request-card">
+                <div class="request-card-header">
+                    <div class="request-title-meta">
+                        <h2>{{ request.service.title }}</h2>
+                        <span class="customer-badge">
+                            From <strong>@{{ request.customer.username }}</strong>
+                        </span>
+                    </div>
+
+                    {% if request.status == "Completed" or request.status == "Accepted" %}
+                        <span class="status-chip status-completed">{{ request.status }}</span>
+                    {% elif request.status == "Pending" %}
+                        <span class="status-chip status-pending">{{ request.status }}</span>
+                    {% elif request.status == "Declined" or request.status == "Cancelled" %}
+                        <span class="status-chip status-declined">{{ request.status }}</span>
+                    {% else %}
+                        <span class="status-chip status-neutral">{{ request.status }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="request-message-box">
+                    <span class="quote-label">Customer's Message:</span>
+                    <p class="quote-text">{{ request.message|linebreaksbr }}</p>
+                </div>
+
+                <div class="request-card-footer">
+                    <a href="{% url 'respond_to_request' request.id %}" class="btn-action-primary">
+                        Send Response / Quote &rarr;
+                    </a>
+                </div>
+            </article>
+        {% empty %}
+            <div class="empty-requests-state">
+                <div class="empty-icon">📬</div>
+                <h2>No customer requests yet</h2>
+                <p>When students browse your services and reach out with requirements, their inquiries will appear here.</p>
+                <a href="{% url 'provider_dashboard' %}" class="btn-browse-services">Return to Dashboard</a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'js/pages/provider_requests.js' %}" defer></script>
+{% endblock %}
