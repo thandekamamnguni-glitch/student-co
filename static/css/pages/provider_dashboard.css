@@ -1,0 +1,283 @@
+/* ==========================================================================
+   Student Co - Provider Dashboard Styles
+   Path: static/css/pages/dashboard.css
+   ========================================================================== */
+
+:root {
+  --green-500: #12b47f;
+  --green-600: #0ea171;
+  --green-100: #d1fae5;
+  --green-50: #ecfdf5;
+  --navy-950: #080d1a;
+  --navy-900: #0f172a;
+  --navy-800: #1e293b;
+  --navy-600: #475569;
+  --navy-500: #64748b;
+  --navy-300: #cbd5e1;
+  --navy-200: #e2e8f0;
+  --navy-100: #f1f5f9;
+  --bg-page: #f8fafc;
+  --card-bg: #ffffff;
+  --danger: #dc2626;
+  --danger-bg: #fef2f2;
+  --font-heading: 'Sora', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --shadow-card: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+  --shadow-hover: 0 10px 15px -3px rgba(15, 23, 42, 0.08);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
+  font-family: var(--font-body);
+  color: var(--navy-900);
+}
+
+/* Page Title & Headings */
+.container h1 {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--navy-900);
+  margin: 0 0 1.5rem 0;
+}
+
+.container h2 {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--navy-900);
+  margin: 2rem 0 1rem 0;
+}
+
+/* Provider Profile Banner / Header Card */
+.provider-hero {
+  background: var(--card-bg);
+  border: 1px solid var(--navy-200);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 2rem;
+}
+
+.provider-hero h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.6rem;
+  color: var(--navy-900);
+}
+
+.provider-hero p {
+  color: var(--navy-600);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0 0 1.25rem 0;
+  max-width: 65ch;
+}
+
+/* Status Badges */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.status-badge::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.status-available {
+  background: var(--green-50);
+  color: var(--green-600);
+  border: 1px solid var(--green-100);
+}
+
+.status-available::before {
+  background: var(--green-500);
+}
+
+.status-unavailable {
+  background: var(--navy-100);
+  color: var(--navy-600);
+  border: 1px solid var(--navy-200);
+}
+
+.status-unavailable::before {
+  background: var(--navy-500);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--navy-200);
+  margin: 2rem 0;
+}
+
+/* Section Header Bar with Action Button */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+  margin: 0;
+}
+
+/* Action Buttons */
+.btn-primary,
+a[href*="add_service"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--green-500);
+  color: #ffffff;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s ease, transform 0.05s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover,
+a[href*="add_service"]:hover {
+  background: var(--green-600);
+}
+
+.btn-primary:active,
+a[href*="add_service"]:active {
+  transform: translateY(1px);
+}
+
+/* Secondary Link Button (Customer requests) */
+.btn-secondary,
+a[href*="provider_requests"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #ffffff;
+  color: var(--navy-800);
+  border: 1.5px solid var(--navy-300);
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+a[href*="provider_requests"]:hover {
+  border-color: var(--green-500);
+  color: var(--green-600);
+  background: var(--green-50);
+}
+
+/* Services Grid Layout */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+/* Service Card */
+.service-card {
+  background: var(--card-bg);
+  border: 1px solid var(--navy-200);
+  border-radius: var(--radius-md);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--navy-300);
+}
+
+.service-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--navy-900);
+  margin: 0 0 0.5rem 0;
+}
+
+.service-card .service-desc {
+  color: var(--navy-600);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0 0 1.25rem 0;
+  flex-grow: 1;
+}
+
+.service-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--navy-100);
+  font-size: 0.9rem;
+  color: var(--navy-600);
+}
+
+.service-meta p {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.service-meta strong {
+  color: var(--navy-800);
+}
+
+.service-meta .price-tag {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--green-600);
+}
+
+.service-card-footer {
+  margin-top: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background: var(--card-bg);
+  border: 2px dashed var(--navy-200);
+  border-radius: var(--radius-md);
+  color: var(--navy-500);
+  font-size: 1rem;
+}
