@@ -1,0 +1,98 @@
+/* ==========================================================================
+   Request Service Styles
+   ========================================================================== */
+
+.request-page-wrapper {
+  max-width: 720px;
+  margin: 2.5rem auto 4.5rem;
+  padding: 0 1.25rem;
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+}
+
+.request-card {
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--navy-200, #e2e8f0);
+  border-radius: var(--radius-lg, 16px);
+  padding: 2.75rem 2.25rem;
+  box-shadow: var(--shadow-card, 0 10px 25px -5px rgba(15, 23, 42, 0.08));
+}
+
+@media (max-width: 600px) {
+  .request-card {
+    padding: 1.75rem 1.25rem;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+  }
+}
+
+/* Service Summary Box */
+.service-brief {
+  background: #f8fafc;
+  border: 1.5px solid var(--navy-200, #e2e8f0);
+  border-radius: var(--radius-md, 12px);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.brief-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.service-brief h2 {
+  font-family: var(--font-heading, 'Sora', sans-serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--navy-900, #0f172a);
+  margin: 0 0 0.5rem 0;
+}
+
+.brief-desc {
+  font-size: 0.95rem;
+  color: var(--navy-600, #475569);
+  line-height: 1.55;
+  margin: 0 0 1.25rem 0;
+}
+
+.brief-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--navy-200, #e2e8f0);
+  font-size: 0.9rem;
+}
+
+.brief-meta .meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brief-meta .meta-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--navy-500, #64748b);
+  font-weight: 600;
+}
+
+.brief-meta .meta-value {
+  color: var(--navy-900, #0f172a);
+}
+
+.textarea-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--navy-500, #64748b);
+  margin-top: 4px;
+}
+
+.char-count {
+  font-variant-numeric: tabular-nums;
+}

@@ -1,61 +1,73 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block title %}Request Service: {{ service.title }} | Student Co{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/create_request.css' %}">
+{% endblock %}
 
 {% block content %}
+<div class="request-page-wrapper">
+    <div class="request-card">
+        <div class="form-header">
+            <a href="{% url 'service_detail' service.id %}" class="back-link">&larr; Back to Service</a>
+            <h1>Request Service</h1>
+            <p class="form-sub">Send your requirements directly to the provider. They will review and respond to confirm availability.</p>
+        </div>
 
-<div class="container">
+        <!-- Service Summary Box -->
+        <div class="service-brief">
+            <div class="brief-header">
+                <span class="category-chip">{{ service.category.name|default:"Service" }}</span>
+                <span class="price-chip">R{{ service.price }}</span>
+            </div>
+            <h2>{{ service.title }}</h2>
+            <p class="brief-desc">{{ service.description|truncatewords:28 }}</p>
 
-    <h1>Request Service</h1>
+            <div class="brief-meta">
+                <div class="meta-row">
+                    <span class="meta-label">Provider</span>
+                    <strong class="meta-value">{{ service.provider.business_name }}</strong>
+                </div>
+                {% if service.location %}
+                <div class="meta-row">
+                    <span class="meta-label">Location</span>
+                    <span class="meta-value">{{ service.location }}</span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
 
-    <h2>{{ service.title }}</h2>
+        <!-- Request Form -->
+        <form method="POST" class="styled-form" id="request-service-form" novalidate>
+            {% csrf_token %}
 
-    <p>
-        {{ service.description }}
-    </p>
+            <div class="form-group">
+                <label for="message">Tell the provider what you need</label>
+                <textarea
+                    id="message"
+                    name="message"
+                    rows="6"
+                    placeholder="Describe your request in detail (e.g. preferred dates, times, topics, specific requirements or questions)..."
+                    required
+                ></textarea>
+                <div class="textarea-footer">
+                    <span class="field-hint">Include dates, times, and location preferences to speed up booking.</span>
+                    <span class="char-count" id="char-counter">0 / 600</span>
+                </div>
+                <span class="field-error" id="message-error"></span>
+            </div>
 
-    <p>
-        <strong>Provider:</strong>
-        {{ service.provider.business_name }}
-    </p>
-
-    <p>
-        <strong>Price:</strong>
-        R{{ service.price }}
-    </p>
-
-    <p>
-        <strong>Location:</strong>
-        {{ service.location }}
-    </p>
-
-    <hr>
-
-    <h2>Send a Request</h2>
-
-    <form method="POST">
-
-        {% csrf_token %}
-
-        <label for="message">
-            Tell the provider what you need:
-        </label>
-
-        <br>
-
-        <textarea
-            id="message"
-            name="message"
-            rows="6"
-            required
-        ></textarea>
-
-        <br><br>
-
-        <button type="submit">
-            Send Request
-        </button>
-
-    </form>
-
+            <div class="form-actions">
+                <button type="submit" class="btn-primary-action">Send Request</button>
+                <a href="{% url 'service_detail' service.id %}" class="btn-cancel-action">Cancel</a>
+            </div>
+        </form>
+    </div>
 </div>
+{% endblock content %}
 
+{% block extra_js %}
+<script src="{% static 'js/pages/create_request.js' %}" defer></script>
 {% endblock %}

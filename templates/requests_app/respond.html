@@ -1,52 +1,78 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block title %}Respond to Request | Student Co{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/respond.css' %}">
+{% endblock %}
 
 {% block content %}
+<div class="respond-page-wrapper">
+    <div class="respond-card">
+        <div class="form-header">
+            <a href="{% url 'provider_requests' %}" class="back-link">&larr; Back to Requests</a>
+            <h1>Respond to Request</h1>
+            <p class="form-sub">Send a message and your price quote to the student to confirm booking details.</p>
+        </div>
 
-<div class="container">
+        <!-- Customer Request Summary -->
+        <div class="customer-request-summary">
+            <div class="summary-top">
+                <span class="customer-chip">Client: @{{ service_request.customer.username }}</span>
+                {% if service_request.service %}
+                    <span class="service-badge">{{ service_request.service.title }}</span>
+                {% endif %}
+            </div>
+            <div class="summary-message">
+                <span class="summary-label">Client's Request:</span>
+                <p>{{ service_request.message|linebreaksbr }}</p>
+            </div>
+        </div>
 
-    <h1>Respond to Request</h1>
+        <!-- Response Form -->
+        <form method="POST" class="styled-form" id="respond-request-form" novalidate>
+            {% csrf_token %}
 
-    <p>
-        Customer:
-        {{ service_request.customer.username }}
-    </p>
+            <div class="form-group">
+                <label for="id_message">Your Message to Customer</label>
+                <textarea
+                    id="id_message"
+                    name="message"
+                    rows="5"
+                    placeholder="Provide your availability, location or meeting point, and any extra information they requested..."
+                    required
+                ></textarea>
+                <span class="field-error" id="message-error"></span>
+            </div>
 
-    <p>
-        Request:
-        {{ service_request.message }}
-    </p>
+            <div class="form-group">
+                <label for="id_price">Your Quote / Price (ZAR)</label>
+                <div class="price-input-wrapper">
+                    <span class="currency-prefix">R</span>
+                    <input
+                        type="number"
+                        id="id_price"
+                        name="price"
+                        step="0.01"
+                        min="0"
+                        placeholder="e.g. 150.00"
+                        required
+                    >
+                </div>
+                <span class="form-hint">The customer will review this price before completing the booking.</span>
+                <span class="field-error" id="price-error"></span>
+            </div>
 
-    <form method="POST">
-
-        {% csrf_token %}
-
-        <label>Message</label>
-
-        <textarea
-            name="message"
-            rows="5"
-            required
-        ></textarea>
-
-        <br><br>
-
-        <label>Price</label>
-
-        <input
-            type="number"
-            name="price"
-            step="0.01"
-            required
-        >
-
-        <br><br>
-
-        <button type="submit">
-            Send Response
-        </button>
-
-    </form>
-
+            <div class="form-actions">
+                <button type="submit" class="btn-submit-response">Send Response & Quote</button>
+                <a href="{% url 'provider_requests' %}" class="btn-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
 </div>
+{% endblock content %}
 
+{% block extra_js %}
+<script src="{% static 'js/pages/respond.js' %}" defer></script>
 {% endblock %}

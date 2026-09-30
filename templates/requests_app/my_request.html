@@ -1,75 +1,94 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block title %}My Service Requests | Student Co{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/my_request.css' %}">
+{% endblock %}
 
 {% block content %}
+<div class="requests-container">
+    <div class="requests-header">
+        <h1>My Service Requests</h1>
+        <p class="requests-sub">Track inquiries you’ve sent to campus service providers and review their responses.</p>
+    </div>
 
-<div class="container">
+    <div class="requests-list">
+        {% for request in requests %}
+            <article class="request-card">
+                <div class="request-card-header">
+                    <div class="request-title-meta">
+                        <h2>{{ request.service.title }}</h2>
+                        <span class="request-date">Requested {{ request.created_at|date:"d M Y, H:i" }}</span>
+                    </div>
 
-    <h1>My Service Requests</h1>
-
-    {% for request in requests %}
-
-        <div>
-
-            <h2>{{ request.service.title }}</h2>
-
-            <p>
-                {{ request.message }}
-            </p>
-
-            <p>
-                Status:
-                <strong>{{ request.status }}</strong>
-            </p>
-
-            <p>
-                Requested:
-                {{ request.created_at }}
-            </p>
-
-            <h3>Provider Responses</h3>
-
-            {% for response in request.responses.all %}
-
-                <div>
-
-                    <p>
-                        {{ response.message }}
-                    </p>
-
-                    <p>
-                        Price:
-                        R{{ response.price }}
-                    </p>
-
-                    <p>
-                        Provider:
-                        {{ response.provider.business_name }}
-                    </p>
-
-                    <a href="{% url 'create_booking' response.id %}">
-                        Book This Response
-                    </a>
-
+                    <!-- Status badge -->
+                    {% if request.status == "Completed" or request.status == "Accepted" %}
+                        <span class="status-chip status-completed">{{ request.status }}</span>
+                    {% elif request.status == "Pending" %}
+                        <span class="status-chip status-pending">{{ request.status }}</span>
+                    {% elif request.status == "Declined" or request.status == "Cancelled" %}
+                        <span class="status-chip status-declined">{{ request.status }}</span>
+                    {% else %}
+                        <span class="status-chip status-neutral">{{ request.status }}</span>
+                    {% endif %}
                 </div>
 
-            {% empty %}
+                <div class="request-message-box">
+                    <span class="quote-label">Your message to provider:</span>
+                    <p class="quote-text">{{ request.message|linebreaksbr }}</p>
+                </div>
 
-                <p>
-                    No provider responses yet.
-                </p>
+                <!-- Provider Responses Section -->
+                <div class="responses-section">
+                    <h3>
+                        Provider Responses
+                        <span class="response-count">{{ request.responses.all|length }}</span>
+                    </h3>
 
-            {% endfor %}
+                    <div class="responses-grid">
+                        {% for response in request.responses.all %}
+                            <div class="response-card">
+                                <div class="response-card-header">
+                                    <div class="provider-info">
+                                        <span class="provider-label">Provider</span>
+                                        <strong class="provider-name">{{ response.provider.business_name }}</strong>
+                                    </div>
+                                    <div class="response-price">
+                                        <span class="price-prefix">Offered:</span>
+                                        <span class="price-val">R{{ response.price }}</span>
+                                    </div>
+                                </div>
 
-        </div>
+                                <p class="response-message">{{ response.message|linebreaksbr }}</p>
 
-        <hr>
-
-    {% empty %}
-
-        <p>You have not made any requests.</p>
-
-    {% endfor %}
-
+                                <div class="response-footer">
+                                    <a href="{% url 'create_booking' response.id %}" class="btn-book-response">
+                                        Book This Response &rarr;
+                                    </a>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <div class="responses-empty">
+                                <p>No provider responses yet. Providers typically answer within 24 hours.</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </article>
+        {% empty %}
+            <div class="empty-requests-state">
+                <div class="empty-icon">📨</div>
+                <h2>You haven't made any requests yet</h2>
+                <p>Browse campus services to connect with tutors, designers, cleaners, or tech experts.</p>
+                <a href="{% url 'service_list' %}" class="btn-browse-services">Browse Services</a>
+            </div>
+        {% endfor %}
+    </div>
 </div>
+{% endblock content %}
 
+{% block extra_js %}
+<script src="{% static 'js/pages/my_request.js' %}" defer></script>
 {% endblock %}
