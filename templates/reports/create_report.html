@@ -1,46 +1,71 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block title %}Report User | Student Co{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/create_report.css' %}">
+{% endblock %}
 
 {% block content %}
+<div class="report-page-wrapper">
+    <div class="report-card">
+        <div class="report-header">
+            <a href="javascript:history.back()" class="back-link">&larr; Go Back</a>
+            <h1>Report User</h1>
+            <p class="report-sub">
+                Help us keep Student Co safe and trustworthy. Reports are confidential and reviewed by campus moderators.
+            </p>
+        </div>
 
-<div class="container">
+        <div class="user-target-banner">
+            <span class="banner-badge">&#9888; Flagged Account</span>
+            <div class="banner-info">
+                <span>You are reporting:</span>
+                <strong>@{{ reported_user.username }}</strong>
+            </div>
+        </div>
 
-    <h1>Report User</h1>
+        <form method="POST" class="report-form" id="report-form" novalidate>
+            {% csrf_token %}
 
-    <p>
-        You are reporting:
-        {{ reported_user.username }}
-    </p>
+            <div class="form-group">
+                <label for="id_reason">Reason for report</label>
+                <input
+                    type="text"
+                    id="id_reason"
+                    name="reason"
+                    placeholder="e.g. No-show, inappropriate conduct, spam, false listing"
+                    required
+                >
+                <span class="field-error" id="reason-error"></span>
+            </div>
 
-    <form method="POST">
+            <div class="form-group">
+                <label for="id_description">Details & Context</label>
+                <textarea
+                    id="id_description"
+                    name="description"
+                    rows="6"
+                    placeholder="Please explain what happened, including dates or specific messages if relevant..."
+                    required
+                ></textarea>
+                <div class="textarea-footer">
+                    <span class="field-hint">The more specific you are, the faster we can investigate.</span>
+                    <span class="char-count" id="char-counter">0 / 500</span>
+                </div>
+                <span class="field-error" id="desc-error"></span>
+            </div>
 
-        {% csrf_token %}
-
-        <label>Reason</label>
-
-        <input
-            type="text"
-            name="reason"
-            required
-        >
-
-        <br><br>
-
-        <label>Description</label>
-
-        <textarea
-            name="description"
-            rows="6"
-            required
-        ></textarea>
-
-        <br><br>
-
-        <button type="submit">
-            Submit Report
-        </button>
-
-    </form>
-
+            <div class="form-actions">
+                <button type="submit" class="btn-submit-report">Submit Report</button>
+                <a href="javascript:history.back()" class="btn-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
 </div>
+{% endblock content %}
 
+{% block extra_js %}
+<script src="{% static 'js/pages/create_report.js' %}" defer></script>
 {% endblock %}
