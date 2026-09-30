@@ -1,81 +1,106 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block title %}Post a Service | Student Co Marketplace{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/add_service.css' %}">
+{% endblock %}
 
 {% block content %}
+<div class="marketplace-page">
+    <div class="marketplace-form-card">
+        <div class="form-header">
+            <a href="{% url 'service_list' %}" class="back-link">&larr; Back to Services</a>
+            <h1>Offer a Service</h1>
+            <p class="form-sub">Publish your service on the campus marketplace so students can find and book you.</p>
+        </div>
 
-<div class="container">
+        <form method="POST" class="marketplace-form" id="marketplace-service-form" novalidate>
+            {% csrf_token %}
 
-    <h1>Add Service</h1>
+            <div class="form-group">
+                <label for="title">Service Title</label>
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    placeholder="e.g. Calculus & Linear Algebra Tutoring"
+                    required
+                >
+                <span class="field-error" id="title-error"></span>
+            </div>
 
-    <form method="POST">
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea
+                    id="description"
+                    name="description"
+                    rows="5"
+                    placeholder="Describe what you offer, what's included, your experience, and scheduling details..."
+                    required
+                ></textarea>
+                <span class="field-error" id="desc-error"></span>
+            </div>
 
-        {% csrf_token %}
+                        <div class="form-grid">
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category" required>
+                        <option value="">Select category</option>
+                        <option value="1">Academic Tutoring & Notes</option>
+                        <option value="2">Graphic Design & CVs</option>
+                        <option value="3">Tech, Laptops & Phone Repair</option>
+                        <option value="4">Campus Photography & Video</option>
+                        <option value="5">Hair, Braiding & Barbering</option>
+                        <option value="6">Campus Deliveries & Moving</option>
+                        <option value="7">Laundry & Alterations</option>
+                        <option value="8">Fitness & Personal Training</option>
+                        <option value="9">Event Planning & DJ Services</option>
+                        <option value="10">Other Campus Skills</option>
+                    </select>
+                    <span class="field-error" id="category-error"></span>
+                </div>
 
-        <label>Service Title</label>
 
-        <input
-            type="text"
-            name="title"
-            required
-        >
+                <div class="form-group">
+                    <label for="price">Price (ZAR)</label>
+                    <div class="price-wrapper">
+                        <span class="currency-tag">R</span>
+                        <input
+                            type="number"
+                            id="price"
+                            name="price"
+                            step="0.01"
+                            min="0"
+                            placeholder="120.00"
+                            required
+                        >
+                    </div>
+                    <span class="field-error" id="price-error"></span>
+                </div>
+            </div>
 
-        <br><br>
+            <div class="form-group">
+                <label for="location">Location / Meeting Point</label>
+                <input
+                    type="text"
+                    id="location"
+                    name="location"
+                    placeholder="e.g. Student Center, Online (Google Meet), Campus Library"
+                >
+                <small class="field-hint">Specify whether you meet on campus or provide remote service.</small>
+            </div>
 
-        <label>Description</label>
-
-        <textarea
-            name="description"
-            rows="5"
-            required
-        ></textarea>
-
-        <br><br>
-
-        <label>Category</label>
-
-        <select name="category" required>
-
-            <option value="">
-                Select category
-            </option>
-
-            {% for category in categories %}
-
-                <option value="{{ category.id }}">
-                    {{ category.name }}
-                </option>
-
-            {% endfor %}
-
-        </select>
-
-        <br><br>
-
-        <label>Price</label>
-
-        <input
-            type="number"
-            name="price"
-            step="0.01"
-            required
-        >
-
-        <br><br>
-
-        <label>Location</label>
-
-        <input
-            type="text"
-            name="location"
-        >
-
-        <br><br>
-
-        <button type="submit">
-            Add Service
-        </button>
-
-    </form>
-
+            <div class="form-actions">
+                <button type="submit" class="btn-primary-action">Publish Service</button>
+                <a href="{% url 'service_list' %}" class="btn-cancel-action">Cancel</a>
+            </div>
+        </form>
+    </div>
 </div>
+{% endblock content %}
 
+{% block extra_js %}
+<script src="{% static 'js/pages/add_service.js' %}" defer></script>
 {% endblock %}

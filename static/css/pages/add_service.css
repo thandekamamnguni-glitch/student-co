@@ -1,0 +1,267 @@
+/* ==========================================================================
+   Student Co - Marketplace Styles
+   Path: static/css/pages/marketplace.css
+   ========================================================================== */
+
+:root {
+  --green-500: #12b47f;
+  --green-600: #0ea171;
+  --green-100: #d1fae5;
+  --green-50: #ecfdf5;
+  --navy-950: #080d1a;
+  --navy-900: #0f172a;
+  --navy-800: #1e293b;
+  --navy-600: #475569;
+  --navy-500: #64748b;
+  --navy-300: #cbd5e1;
+  --navy-200: #e2e8f0;
+  --navy-100: #f1f5f9;
+  --bg-page: #f8fafc;
+  --card-bg: #ffffff;
+  --danger: #dc2626;
+  --danger-bg: #fef2f2;
+  --font-heading: 'Sora', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --shadow-card: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Page Outer Layout */
+.marketplace-page {
+  max-width: 740px;
+  margin: 2.5rem auto 4.5rem;
+  padding: 0 1.25rem;
+  font-family: var(--font-body);
+}
+
+/* Main Form Card */
+.marketplace-form-card {
+  background: var(--card-bg);
+  border: 1px solid var(--navy-200);
+  border-radius: var(--radius-lg);
+  padding: 2.75rem 2.25rem;
+  box-shadow: var(--shadow-card);
+}
+
+@media (max-width: 600px) {
+  .marketplace-form-card {
+    padding: 1.75rem 1.25rem;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+  }
+}
+
+.back-link {
+  display: inline-block;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--navy-500);
+  text-decoration: none;
+  margin-bottom: 1.25rem;
+  transition: color 0.15s ease;
+}
+
+.back-link:hover {
+  color: var(--green-600);
+}
+
+.form-header h1 {
+  font-family: var(--font-heading);
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--navy-900);
+  line-height: 1.25;
+  margin: 0 0 0.5rem 0;
+}
+
+.form-sub {
+  color: var(--navy-600);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0 0 2rem 0;
+}
+
+/* Form Container */
+.marketplace-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+  width: 100%;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+@media (max-width: 640px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  width: 100%;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--navy-800);
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  font-family: inherit;
+  font-size: 0.95rem;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--navy-200);
+  border-radius: var(--radius-sm);
+  background: #ffffff;
+  color: var(--navy-900);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: var(--green-500);
+  box-shadow: 0 0 0 3px var(--green-100);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 130px;
+  line-height: 1.5;
+}
+
+.form-group select {
+  appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2364748b' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+/* Price field with R badge */
+.price-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.currency-tag {
+  position: absolute;
+  left: 14px;
+  font-weight: 700;
+  color: var(--navy-500);
+  font-size: 1rem;
+  pointer-events: none;
+}
+
+.price-wrapper input {
+  padding-left: 2.15rem !important;
+}
+
+.field-hint {
+  font-size: 0.8rem;
+  color: var(--navy-500);
+  margin-top: 2px;
+}
+
+/* Error states */
+.form-group input.input-error,
+.form-group textarea.input-error,
+.form-group select.input-error {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+}
+
+.field-error {
+  font-size: 0.8rem;
+  color: var(--danger);
+  display: none;
+  margin-top: 2px;
+}
+
+.field-error.active {
+  display: block;
+}
+
+/* Form Action Buttons */
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--navy-100);
+}
+
+.btn-primary-action {
+  flex: 1;
+  height: 48px;
+  background: var(--green-500);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.05s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primary-action:hover {
+  background: var(--green-600);
+}
+
+.btn-primary-action:active {
+  transform: translateY(1px);
+}
+
+.btn-primary-action:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-cancel-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 1.5rem;
+  background: transparent;
+  color: var(--navy-600);
+  border: 1.5px solid var(--navy-300);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+
+.btn-cancel-action:hover {
+  border-color: var(--navy-600);
+  color: var(--navy-900);
+  background: var(--navy-100);
+}
