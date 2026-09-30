@@ -1,55 +1,82 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block title %}Leave a Review | Student Co{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/create_review.css' %}">
+{% endblock %}
 
 {% block content %}
+<div class="review-page-wrapper">
+    <div class="review-card">
+        <div class="form-header">
+            <a href="{% url 'my_bookings' %}" class="back-link">&larr; Back to My Bookings</a>
+            <h1>Leave a Review</h1>
+            <p class="form-sub">Share your feedback to help other students choose reliable campus providers.</p>
+        </div>
 
-<div class="container">
+        <!-- Booking Summary Box -->
+        <div class="booking-summary-box">
+            <span class="summary-badge">Completed Booking</span>
+            <h2>{{ booking.request.service.title }}</h2>
+            <div class="summary-meta">
+                <span class="meta-label">Provider</span>
+                <strong class="meta-value">{{ booking.response.provider.business_name }}</strong>
+            </div>
+        </div>
 
-    <h1>Leave a Review</h1>
+        <form method="POST" class="styled-form" id="review-form" novalidate>
+            {% csrf_token %}
 
-    <p>
-        Service:
-        {{ booking.request.service.title }}
-    </p>
+            <div class="form-group">
+                <label for="rating-select">Rating</label>
 
-    <p>
-        Provider:
-        {{ booking.response.provider.business_name }}
-    </p>
+                <!-- Interactive Star Selector -->
+                <div class="star-rating-widget" id="star-widget" aria-label="Rating selector">
+                    <button type="button" class="star-btn" data-value="1" aria-label="1 star - Very poor">&#9733;</button>
+                    <button type="button" class="star-btn" data-value="2" aria-label="2 stars - Poor">&#9733;</button>
+                    <button type="button" class="star-btn" data-value="3" aria-label="3 stars - Average">&#9733;</button>
+                    <button type="button" class="star-btn" data-value="4" aria-label="4 stars - Good">&#9733;</button>
+                    <button type="button" class="star-btn" data-value="5" aria-label="5 stars - Excellent">&#9733;</button>
+                    <span class="rating-label-text" id="rating-label">Select a score</span>
+                </div>
 
-    <form method="POST">
+                <!-- Native select for form submit / fallback -->
+                <select name="rating" id="rating-select" class="rating-native-select" required>
+                    <option value="">Select rating</option>
+                    <option value="1">1 - Very poor</option>
+                    <option value="2">2 - Poor</option>
+                    <option value="3">3 - Average</option>
+                    <option value="4">4 - Good</option>
+                    <option value="5">5 - Excellent</option>
+                </select>
+                <span class="field-error" id="rating-error"></span>
+            </div>
 
-        {% csrf_token %}
+            <div class="form-group">
+                <label for="id_comment">Your Review / Comments</label>
+                <textarea
+                    id="id_comment"
+                    name="comment"
+                    rows="5"
+                    placeholder="How was the communication, punctuality, and overall quality of service?"
+                ></textarea>
+                <div class="textarea-footer">
+                    <span class="field-hint">Honest feedback helps keep campus services high quality.</span>
+                    <span class="char-count" id="comment-counter">0 / 400</span>
+                </div>
+            </div>
 
-        <label>Rating</label>
-
-        <select name="rating" required>
-
-            <option value="">Select rating</option>
-            <option value="1">1 - Very poor</option>
-            <option value="2">2</option>
-            <option value="3">3 - Average</option>
-            <option value="4">4</option>
-            <option value="5">5 - Excellent</option>
-
-        </select>
-
-        <br><br>
-
-        <label>Comment</label>
-
-        <textarea
-            name="comment"
-            rows="5"
-        ></textarea>
-
-        <br><br>
-
-        <button type="submit">
-            Submit Review
-        </button>
-
-    </form>
-
+            <div class="form-actions">
+                <button type="submit" class="btn-submit-review">Submit Review</button>
+                <a href="{% url 'my_bookings' %}" class="btn-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
 </div>
+{% endblock content %}
 
+{% block extra_js %}
+<script src="{% static 'js/pages/create_review.js' %}" defer></script>
 {% endblock %}
