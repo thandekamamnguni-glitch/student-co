@@ -1,1 +1,1 @@
-#Accounts models are cyrrently managed by the core app
+# Accounts models are currently managed by the core app
