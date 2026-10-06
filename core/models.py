@@ -21,6 +21,12 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+    
+    account_type = models.CharField(
+        max_length=10,
+        choices=[('seeker', 'Seeker'), ('provider', 'Provider'), ('both', 'Both')],
+        default='both',
+    )
 
 
 class ProviderProfile(models.Model):
