@@ -1,91 +1,74 @@
 /**
- * Student Co - Register & Password Toggle Functionality
- * Path: static/js/pages/accounts.js
+ * Student Co - Register page: password toggle, validation, submit state
+ * Path: static/js/pages/register.js
  */
-
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Password toggles
-  const toggleButtons = document.querySelectorAll('.btn-toggle-pwd');
-  toggleButtons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const wrapper = btn.closest('.password-wrapper');
-      const input = wrapper ? wrapper.querySelector('input') : null;
-      if (!input) return;
+  const form = document.getElementById('register-form');
+  if (!form) return;
 
-      const isPassword = input.type === 'password';
-      input.type = isPassword ? 'text' : 'password';
-      btn.textContent = isPassword ? 'Hide' : 'Show';
+  const submitBtn = form.querySelector('.btn-submit');
+
+  // Password show/hide
+  form.querySelectorAll('.btn-toggle-pwd').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const input = btn.closest('.password-wrapper')?.querySelector('input');
+      if (!input) return;
+      const show = input.type === 'password';
+      input.type = show ? 'text' : 'password';
+      btn.textContent = show ? 'Hide' : 'Show';
     });
   });
 
-  // 2. Validation & Submission
-  const registerForm = document.getElementById('register-form');
-  if (!registerForm) return;
-
-  const usernameInput = document.getElementById('username');
-  const emailInput = document.getElementById('email');
-  const passwordInput = document.getElementById('password');
-  const confirmPasswordInput = document.getElementById('confirm_password');
-  const submitBtn = registerForm.querySelector('.btn-submit');
-
-  function clearError(input, errorId) {
-    if (input) input.classList.remove('input-error');
-    const err = document.getElementById(errorId);
+  // Error helpers (look up the span by data-error-for)
+  function setError(name, message) {
+    const err = form.querySelector('[data-error-for="' + name + '"]');
+    const input = form.elements[name];
+    const el = input && input.length ? null : input; // radio groups have no single input
     if (err) {
-      err.textContent = '';
-      err.classList.remove('active');
+      err.textContent = message || '';
+      err.classList.toggle('active', !!message);
     }
+    if (el) el.classList.toggle('input-error', !!message);
   }
 
-  function setError(input, errorId, message) {
-    if (input) input.classList.add('input-error');
-    const err = document.getElementById(errorId);
-    if (err) {
-      err.textContent = message;
-      err.classList.add('active');
-    }
-  }
-
-  [
-    [usernameInput, 'username-error'],
-    [emailInput, 'email-error'],
-    [passwordInput, 'password-error'],
-    [confirmPasswordInput, 'confirm-error'],
-  ].forEach(([input, errorId]) => {
-    if (input) {
-      input.addEventListener('input', () => clearError(input, errorId));
-    }
+  // Clear an error when the user edits that field
+  ['username', 'email', 'password', 'confirm_password'].forEach((name) => {
+    const input = form.elements[name];
+    if (input) input.addEventListener('input', () => setError(name, ''));
   });
+  form.querySelectorAll('input[name="account_type"]').forEach((r) =>
+    r.addEventListener('change', () => setError('account_type', ''))
+  );
 
-  registerForm.addEventListener('submit', (e) => {
-    let isValid = true;
+  form.addEventListener('submit', (e) => {
+    let ok = true;
 
-    if (usernameInput && usernameInput.value.trim().length < 3) {
-      setError(usernameInput, 'username-error', 'Username must be at least 3 characters.');
-      isValid = false;
+    if (!form.querySelector('input[name="account_type"]:checked')) {
+      setError('account_type', 'Choose how you will use Student Co.');
+      ok = false;
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (emailInput && !emailRegex.test(emailInput.value.trim())) {
-      setError(emailInput, 'email-error', 'Please enter a valid email address.');
-      isValid = false;
+    if (form.elements['username'].value.trim().length < 3) {
+      setError('username', 'Username must be at least 3 characters.');
+      ok = false;
     }
 
-    if (passwordInput && passwordInput.value.length < 6) {
-      setError(passwordInput, 'password-error', 'Password must be at least 6 characters.');
-      isValid = false;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.elements['email'].value.trim())) {
+      setError('email', 'Please enter a valid email address.');
+      ok = false;
     }
 
-    if (
-      passwordInput &&
-      confirmPasswordInput &&
-      passwordInput.value !== confirmPasswordInput.value
-    ) {
-      setError(confirmPasswordInput, 'confirm-error', 'Passwords do not match.');
-      isValid = false;
+    if (form.elements['password'].value.length < 6) {
+      setError('password', 'Password must be at least 6 characters.');
+      ok = false;
     }
 
-    if (!isValid) {
+    if (form.elements['password'].value !== form.elements['confirm_password'].value) {
+      setError('confirm_password', 'Passwords do not match.');
+      ok = false;
+    }
+
+    if (!ok) {
       e.preventDefault();
       return;
     }
