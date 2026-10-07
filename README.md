@@ -101,6 +101,21 @@ A web-based platform that connects students who need services (tutoring, graphic
    Open **http://127.0.0.1:8000/** in your browser.
 
 
+## Test Accounts [CONFIRM: replace with real ones]
+
+## Test Accounts
+
+| Role             | Username      | Password        |
+| ---------------- | ------------- | --------------- |
+| Administrator    | `admin`       | `StudentCo@123` |
+| Administrator    | `admin2`      | `StudentCo@123` |
+| Customer         | `jerry`       | `StudentCo@123` |
+| Customer         | `JerryMoyane` | `StudentCo@123` |
+| Customer         | `jei`         | `StudentCo@123` |
+| Service Provider | `peace`       | `StudentCo@123` |
+| Test User        | `jei11`       | `StudentCo@123` |
+| Test User        | `jerrytest`   | `StudentCo@123` |
+
 ## Running the Tests
 
 ```bash
